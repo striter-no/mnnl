@@ -1,0 +1,20 @@
+{
+  "metadata": {
+    "name": "_",
+    "version": "0.0.0",
+    "priority": 20
+  },
+
+  "dependencies": {
+    "gpu": {"version": ">=0.0.0"},
+    "backend": {"version": ">=0.0.0"},
+
+    "math": {"version": ">=0.0.0"},
+    "ml": {"version": ">=0.0.0"},
+    "networks": {"version": ">=0.0.0"},
+    "datahelper": {"version": ">=0.0.0"}
+  },
+
+  "only-deps": true,
+  "target": "valgrind"
+}

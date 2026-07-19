@@ -1,0 +1,23 @@
+{
+  "metadata": {
+    "name": "gpu",
+    "version": "0.0.0",
+    "priority": 1
+  },
+
+  "compiler": {
+    "binary": "static-lib"
+  },
+
+  "dependencies": {
+    "ygpu": { "version": ">=0.0.0" }
+  },
+
+  "code": {
+    "sources": ["**/*.cpp"],
+    "output": "./bin/gpu",
+    "includes": ["include"]
+  },
+
+  "target": "debug"
+}

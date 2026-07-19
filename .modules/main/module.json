@@ -1,0 +1,23 @@
+{
+  "metadata": {
+    "name": "main",
+    "version": "0.0.0",
+    "priority": 100
+  },
+
+  "compiler": {
+    "binary": "executable"
+  },
+
+  "dependencies": {
+    "_": { "version": ">=0.0.0" }
+  },
+
+  "code": {
+    "sources": ["**/*.cpp"],
+    "output": "./bin/main",
+    "includes": ["include"]
+  },
+
+  "target": "valgrind"
+}

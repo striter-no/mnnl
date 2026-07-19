@@ -1,0 +1,22 @@
+{
+  "metadata": {
+    "name": "my-neuralnetwork-learning",
+    "version": "0.0.0"
+  },
+
+  "dependencies": {
+    "main": { "version": ">=0.0.0" }
+  },
+
+  "remote_deps": {
+    "ygpu": {
+      "version": ">=0.0.0",
+      "url": "https://github.com/striter-no/ygpu"
+    }
+  },
+
+  "only-deps": true,
+  "defaults": "defaults.json",
+  "target": "valgrind",
+  "testsPath": ".tests"
+}

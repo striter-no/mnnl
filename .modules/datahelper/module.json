@@ -1,0 +1,23 @@
+{
+  "metadata": {
+    "name": "datahelper",
+    "version": "0.0.0",
+    "priority": 100
+  },
+
+  "compiler": {
+    "binary": "static-lib"
+  },
+
+  "dependencies": {
+    "math": {"version": ">=0.0.0"}
+  },
+
+  "code": {
+    "sources": ["**/*.cpp"],
+    "output": "./bin/datahelper",
+    "includes": ["include"]
+  },
+
+  "target": "valgrind"
+}

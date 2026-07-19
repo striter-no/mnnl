@@ -1,0 +1,14 @@
+{
+  "compiler": {
+    "cc": "clang++",
+    "binary": "executable",
+    "objects_path": ".objs"
+  },
+
+  "targets": {
+    "valgrind": {
+      "flags": ["-g", "-D_GNU_SOURCE", "-DVK_NO_PROTOTYPES"],
+      "optimization": "O1"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+.dev
+bin
+.objs
+.cache
+.zed
+.vendor/*
+.last_built
+
+# vendor
+.modules/ygpu

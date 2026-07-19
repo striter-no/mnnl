@@ -1,0 +1,23 @@
+{
+  "metadata": {
+    "name": "ml",
+    "version": "0.0.0",
+    "priority": 2
+  },
+
+  "compiler": {
+    "binary": "static-lib"
+  },
+
+  "dependencies": {
+    "math": {"version": ">=0.0.0"}
+  },
+
+  "code": {
+    "sources": ["**/*.cpp"],
+    "output": "./bin/ml",
+    "includes": ["include"]
+  },
+
+  "target": "valgrind"
+}
