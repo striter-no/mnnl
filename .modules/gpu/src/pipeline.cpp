@@ -134,4 +134,52 @@ ComputePipeline& ComputePipeline::set_gpu(std::shared_ptr<GPUDevice>& device)
     return *this;
 }
 
+ComputePipeline::~ComputePipeline()
+{
+    destroy();
+}
+
+ComputePipeline::ComputePipeline(ComputePipeline&& other) noexcept
+{
+    *this = std::move(other);
+}
+
+ComputePipeline& ComputePipeline::operator=(ComputePipeline&& other) noexcept
+{
+    if (this != &other) {
+        destroy();
+
+        gpu = std::move(other.gpu);
+        shader = std::move(other.shader);
+        layout = std::move(other.layout);
+        pool = std::move(other.pool);
+        bg = std::move(other.bg);
+        computePipeline = std::move(other.computePipeline);
+
+        cmdList = other.cmdList;
+        cmdPool = other.cmdPool;
+        fence = other.fence;
+        isRecorded = other.isRecorded;
+
+        other.cmdPool = VK_NULL_HANDLE;
+        other.fence = VK_NULL_HANDLE;
+        other.isRecorded = false;
+    }
+    return *this;
+}
+
+void ComputePipeline::destroy()
+{
+    if (gpu && gpu->device.LogicalDevice != VK_NULL_HANDLE) {
+        if (fence != VK_NULL_HANDLE) {
+            vkDestroyFence(gpu->device.LogicalDevice, fence, nullptr);
+            fence = VK_NULL_HANDLE;
+        }
+        if (cmdPool != VK_NULL_HANDLE) {
+            vkDestroyCommandPool(gpu->device.LogicalDevice, cmdPool, nullptr);
+            cmdPool = VK_NULL_HANDLE;
+        }
+    }
+}
+
 } // namespace nn::gpu

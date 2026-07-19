@@ -28,9 +28,7 @@ class ComputePipeline {
 public:
     void wait_idle();
     void build();
-
     void record(uint32_t elementsX, uint32_t elementsY = 1, uint32_t elementsZ = 1, const void* pushData = nullptr);
-
     void submit_async();
     void wait();
 
@@ -38,8 +36,16 @@ public:
     ComputePipeline& set_shader(ComputeShader& shader);
     ComputePipeline& set_gpu(std::shared_ptr<GPUDevice>& device);
 
-    ComputePipeline() = default;
-    ~ComputePipeline() = default;
+    ComputePipeline();
+    ~ComputePipeline();
+
+    ComputePipeline(const ComputePipeline&) = delete;
+    ComputePipeline& operator=(const ComputePipeline&) = delete;
+
+    ComputePipeline(ComputePipeline&& other) noexcept;
+    ComputePipeline& operator=(ComputePipeline&& other) noexcept;
+
+    void destroy();
 };
 
 } // namespace nn::gpu

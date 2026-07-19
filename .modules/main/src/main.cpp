@@ -16,7 +16,7 @@ int main()
     for (uint32_t i = 0; i < count; ++i) {
         gpus.push_back(std::make_shared<GPUDevice>(
             yst::gpuc::ApiVersion { 1, 3, 0 },
-            yst::gpuc::DEFAULT_CONFIG,
+            yst::gpuc::DEBUG_CONFIG,
             i));
     }
 
