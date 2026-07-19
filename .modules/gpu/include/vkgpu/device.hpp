@@ -9,9 +9,12 @@ class GPUDevice {
 public:
     yst::core::Device device;
 
+    static uint32_t get_available_device_count();
+
     GPUDevice(
         yst::gpuc::ApiVersion apiVers = {1, 3, 0},
-        yst::gpuc::Preset preset = yst::gpuc::DEFAULT_CONFIG
+        yst::gpuc::Preset preset = yst::gpuc::DEFAULT_CONFIG,
+        int targetDeviceIndex = -1
     );
 
     GPUDevice(GPUDevice&& other) noexcept;

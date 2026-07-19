@@ -8,23 +8,33 @@
 
 namespace nn::gpu {
 
+enum class BindingType {
+    Storage,
+    Uniform,
+    ReadOnlyStorage
+};
+
 class ComputeLayout {
     friend class ComputePipeline;
-
     struct BindingDesc {
         uint32_t index;
-        bool readOnly;
+        BindingType type;
     };
     std::vector<BindingDesc> bindings;
 
     yst::core::BindGroupLayout bgl;
     yst::core::PipelineLayout pipelineLayout;
+    uint32_t pushConstantSize = 0;
 
 public:
     template<class T>
-    ComputeLayout &add_buffer(const Buffer<T> &buf) {
-        bool readOnly = (buf.type == BufferType::GPU_INPUT);
-        bindings.push_back({ (uint32_t)bindings.size(), readOnly });
+    ComputeLayout& add_buffer(const Buffer<T>& buf, BindingType type = BindingType::Storage) {
+        bindings.push_back({ (uint32_t)bindings.size(), type });
+        return *this;
+    }
+
+    ComputeLayout& set_push_constant_size(uint32_t size) {
+        pushConstantSize = size;
         return *this;
     }
 

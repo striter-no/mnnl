@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "name": "gpu",
+    "name": "spirv-reflect",
     "version": "0.0.0",
     "priority": 10
   },
@@ -9,14 +9,11 @@
     "binary": "static-lib"
   },
 
-  "dependencies": {
-    "ygpu": { "version": ">=0.0.0" },
-    "spirv-reflect": { "version": ">=0.0.0" }
-  },
+  "dependencies": {},
 
   "code": {
-    "sources": ["**/*.cpp"],
-    "output": "./bin/gpu",
+    "sources": ["**/*.cpp", "**/*.c"],
+    "output": "./bin/spirv-reflect",
     "includes": ["include"]
   },
 

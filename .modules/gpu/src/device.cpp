@@ -2,12 +2,21 @@
 
 namespace nn::gpu {
 
-GPUDevice::GPUDevice(yst::gpuc::ApiVersion apiVers, yst::gpuc::Preset preset)
+uint32_t GPUDevice::get_available_device_count()
+{
+    return yst::core::GetAvailableDeviceCount();
+}
+
+GPUDevice::GPUDevice(yst::gpuc::ApiVersion apiVers, yst::gpuc::Preset preset, int targetDeviceIndex)
 {
     auto deviceCfg = yst::core::CreateConfig(preset);
     deviceCfg.AppName = "mnnl-vkgpgpu";
     deviceCfg.EngineName = "mnnl-gpu-backend";
     deviceCfg.AppVersion = apiVers;
+
+    if (targetDeviceIndex >= 0) {
+        deviceCfg.TargetDeviceIndex = static_cast<uint32_t>(targetDeviceIndex);
+    }
 
     auto [device, err] = yst::core::CreateDevice(deviceCfg);
     if (err)

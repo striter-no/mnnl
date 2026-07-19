@@ -26,6 +26,8 @@ class ComputeShader {
     };
     std::vector<BoundBuffer> boundBuffers;
 
+    uint32_t localX = 0, localY = 0, localZ = 0;
+
 public:
     void load_from_spv(const std::string &path);
 

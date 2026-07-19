@@ -9,8 +9,19 @@ using namespace nn::gpu;
 
 int main()
 {
-    auto dev = std::make_shared<GPUDevice>();
-    std::cout << dev->device.GetDeviceName() << std::endl;
+    uint32_t count = GPUDevice::get_available_device_count();
+    std::cout << "Available GPUs: " << count << std::endl;
+
+    std::vector<std::shared_ptr<GPUDevice>> gpus;
+    for (uint32_t i = 0; i < count; ++i) {
+        gpus.push_back(std::make_shared<GPUDevice>(
+            yst::gpuc::ApiVersion { 1, 3, 0 },
+            yst::gpuc::DEFAULT_CONFIG,
+            i));
+    }
+
+    auto dev = gpus[0];
+    std::cout << "Using: " << dev->device.GetDeviceName() << std::endl;
 
     const size_t dataSize = 512;
     Buffer<float>
@@ -19,11 +30,17 @@ int main()
         gpu_in(dataSize, BufferType::GPU_INPUT, *dev),
         gpu_out(dataSize, BufferType::GPU_OUTPUT, *dev);
 
-    staging_to_gpu.fill(std::vector(dataSize, 5.f));
+    staging_to_gpu.fill(std::vector<float>(dataSize, 5.f));
+
+    struct PushConsts {
+        float multiplier;
+        float addend;
+    } pc;
 
     auto layout = ComputeLayout();
-    layout.add_buffer(gpu_in)
-        .add_buffer(gpu_out);
+    layout.add_buffer(gpu_in, BindingType::ReadOnlyStorage)
+        .add_buffer(gpu_out, BindingType::Storage)
+        .set_push_constant_size(sizeof(PushConsts));
 
     auto shader = ComputeShader();
     shader.load_from_source("./assets/compute.comp");
@@ -36,9 +53,16 @@ int main()
         .set_shader(shader)
         .build();
 
-    pipeline.submit(); // blocks thread until data from GPU is transfered to staging_from_gpu
+    pc.multiplier = 2.0f;
+    pc.addend = 10.0f;
+
+    pipeline.record(dataSize, 1, 1, &pc);
+    pipeline.submit_async();
+    pipeline.wait();
 
     auto data = staging_from_gpu.fetch();
+
+    // 5.0 * 2.0 + 10.0 = 20.0
     std::cout << "Compute result [0]: " << data[0] << std::endl;
 
     pipeline.wait_idle();
