@@ -15,7 +15,6 @@ void ComputeLayout::build(yst::core::Device& device) {
     if (bglErr) throw std::runtime_error("Failed to create bind group layout: " + bglErr.str());
     this->bgl = std::move(bgl);
 
-    // СОБИРАЕМ PIPELINE LAYOUT С PUSH CONSTANTS
     auto plBuilder = yst::core::PipelineLayoutBuilder(yst::core::PipelineLayoutPreset::Empty)
                         .AddBindGroupLayout(this->bgl);
 

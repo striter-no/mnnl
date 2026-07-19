@@ -13,22 +13,16 @@ int main()
     std::cout << "Available GPUs: " << count << std::endl;
 
     std::vector<std::shared_ptr<GPUDevice>> gpus;
-    for (uint32_t i = 0; i < count; ++i) {
-        gpus.push_back(std::make_shared<GPUDevice>(
-            yst::gpuc::ApiVersion { 1, 3, 0 },
-            yst::gpuc::DEBUG_CONFIG,
-            i));
-    }
+    for (uint32_t i = 0; i < count; ++i)
+        gpus.push_back(std::make_shared<GPUDevice>(yst::gpuc::ApiVersion { 1, 3, 0 }, yst::gpuc::DEBUG_CONFIG, i));
 
     auto dev = gpus[0];
     std::cout << "Using: " << dev->device.GetDeviceName() << std::endl;
 
     const size_t dataSize = 512;
     Buffer<float>
-        staging_to_gpu(dataSize, BufferType::STAGING_TO_GPU, *dev),
-        staging_from_gpu(dataSize, BufferType::STAGING_FROM_GPU, *dev),
-        gpu_in(dataSize, BufferType::GPU_INPUT, *dev),
-        gpu_out(dataSize, BufferType::GPU_OUTPUT, *dev);
+        staging_to_gpu(dataSize, BufferType::STAGING_TO_GPU, *dev), staging_from_gpu(dataSize, BufferType::STAGING_FROM_GPU, *dev),
+        gpu_in(dataSize, BufferType::GPU_INPUT, *dev), gpu_out(dataSize, BufferType::GPU_OUTPUT, *dev);
 
     staging_to_gpu.fill(std::vector<float>(dataSize, 5.f));
 
