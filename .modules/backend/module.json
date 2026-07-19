@@ -15,5 +15,5 @@
     "includes": ["include"]
   },
 
-  "target": "debug"
+  "target": "valgrind"
 }

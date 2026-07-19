@@ -94,6 +94,7 @@ public:
         } break;
         }
     }
+
     Buffer() = default;
     ~Buffer() = default;
 };

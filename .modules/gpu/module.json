@@ -2,7 +2,7 @@
   "metadata": {
     "name": "gpu",
     "version": "0.0.0",
-    "priority": 1
+    "priority": 10
   },
 
   "compiler": {
@@ -19,5 +19,5 @@
     "includes": ["include"]
   },
 
-  "target": "debug"
+  "target": "valgrind"
 }

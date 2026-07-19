@@ -12,28 +12,11 @@ public:
     GPUDevice(
         yst::gpuc::ApiVersion apiVers = {1, 3, 0},
         yst::gpuc::Preset preset = yst::gpuc::DEFAULT_CONFIG
-    ) {
-        auto deviceCfg = yst::core::CreateConfig(preset);
-        deviceCfg.AppName = "mnnl-vkgpgpu";
-        deviceCfg.EngineName = "mnnl-gpu-backend";
-        deviceCfg.AppVersion = apiVers;
+    );
 
-        auto [device, err] = yst::core::CreateDevice(deviceCfg);
-        if (err)
-            throw std::runtime_error("Failed to create device: " + err.str());
+    GPUDevice(GPUDevice&& other) noexcept;
 
-        this->device = std::move(device);
-    }
-
-    GPUDevice(GPUDevice&& other) noexcept {
-        this->device = std::move(other.device);
-    }
-
-    GPUDevice& operator=(GPUDevice&& other) noexcept {
-        this->device = std::move(other.device);
-
-        return *this;
-    }
+    GPUDevice& operator=(GPUDevice&& other) noexcept;
 
     GPUDevice(const GPUDevice&) = delete;
     GPUDevice& operator=(const GPUDevice&) = delete;

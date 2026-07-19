@@ -5,6 +5,7 @@ bin
 .zed
 .vendor/*
 .last_built
+compile_commands.json
 
 # vendor
 .modules/ygpu
