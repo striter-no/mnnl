@@ -83,7 +83,7 @@ public:
     ComputePipeline& set_shader(ComputeShader& shader);
     ComputePipeline& set_gpu(std::shared_ptr<GPUDevice>& device);
 
-    ComputePipeline();
+    ComputePipeline() = default;
     ~ComputePipeline();
 
     ComputePipeline(const ComputePipeline&) = delete;
