@@ -7,7 +7,7 @@
 
   "targets": {
     "valgrind": {
-      "flags": ["-g", "-D_GNU_SOURCE", "-DVK_NO_PROTOTYPES"],
+      "flags": ["-std=c++26", "-g", "-D_GNU_SOURCE", "-DVK_NO_PROTOTYPES"],
       "optimization": "O1"
     }
   }
